@@ -58,19 +58,41 @@ document.querySelectorAll('.gallery-tab').forEach(tab => {
   });
 });
 
-// Contact form submit
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+// Contact form submit — Web3Forms
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  btn.textContent = 'Enquiry Sent! ✓';
-  btn.style.background = '#27ae60';
-  btn.style.borderColor = '#27ae60';
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+  btn.textContent = 'Sending…';
   btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = 'Send Enquiry';
-    btn.style.background = '';
-    btn.style.borderColor = '';
-    btn.disabled = false;
+
+  const data = new FormData(e.target);
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: data
+  });
+  const json = await res.json();
+
+  if (json.success) {
+    btn.textContent = 'Enquiry Sent! ✓';
+    btn.style.background = '#27ae60';
+    btn.style.borderColor = '#27ae60';
+    msg.style.display = 'block';
+    msg.style.color = '#27ae60';
+    msg.textContent = 'Thank you! We will get back to you shortly.';
     e.target.reset();
-  }, 4000);
+    setTimeout(() => {
+      btn.textContent = 'Send Enquiry';
+      btn.style.background = '';
+      btn.style.borderColor = '';
+      btn.disabled = false;
+      msg.style.display = 'none';
+    }, 5000);
+  } else {
+    btn.textContent = 'Send Enquiry';
+    btn.disabled = false;
+    msg.style.display = 'block';
+    msg.style.color = '#e74c3c';
+    msg.textContent = 'Something went wrong. Please try again or call us directly.';
+  }
 });

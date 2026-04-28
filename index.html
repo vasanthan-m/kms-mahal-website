@@ -467,41 +467,46 @@
         </div>
         <div class="contact-form-wrap">
           <form class="contact-form" id="contactForm">
+            <input type="hidden" name="access_key" value="51a204d0-a4f6-4b5b-99bd-4e61171cdb8f" />
+            <input type="hidden" name="subject" value="New Enquiry – KMS Mahal Website" />
+            <input type="hidden" name="from_name" value="KMS Mahal Website" />
+            <input type="checkbox" name="botcheck" style="display:none" />
             <h3>Send an Enquiry</h3>
             <div class="form-row">
               <div class="form-group">
                 <label>Your Name *</label>
-                <input type="text" placeholder="Full name" required />
+                <input type="text" name="name" placeholder="Full name" required />
               </div>
               <div class="form-group">
                 <label>Phone *</label>
-                <input type="tel" placeholder="+91 XXXXX XXXXX" required />
+                <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required />
               </div>
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="email" placeholder="your@email.com" />
+              <input type="email" name="email" placeholder="your@email.com" />
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label>Venue *</label>
-                <select required>
+                <select name="venue" required>
                   <option value="">Select venue</option>
                   <option>KMS Mahal (Grand Hall)</option>
-                  <option>KMS Convention Hall (3rd Floor)</option>
+                  <option>KMS Convention Hall</option>
                   <option>Both Venues</option>
                 </select>
               </div>
               <div class="form-group">
                 <label>Preferred Date</label>
-                <input type="date" />
+                <input type="date" name="preferred_date" />
               </div>
             </div>
             <div class="form-group">
               <label>Message</label>
-              <textarea rows="4" placeholder="Tell us about your event..."></textarea>
+              <textarea rows="4" name="message" placeholder="Tell us about your event..."></textarea>
             </div>
-            <button type="submit" class="btn-primary btn-full">Send Enquiry</button>
+            <button type="submit" class="btn-primary btn-full" id="submitBtn">Send Enquiry</button>
+            <p id="formMsg" style="display:none;margin-top:12px;text-align:center;font-size:.88rem;"></p>
           </form>
         </div>
       </div>
