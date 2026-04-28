@@ -392,6 +392,129 @@ img { max-width: 100%; display: block; }
   margin-top: 28px;
 }
 
+/* ── Our Venues ── */
+.venues { background: var(--dark); }
+.venues .section-label { color: var(--gold); border-color: var(--gold); }
+.venues .section-title { color: var(--white); }
+.venues .section-desc { color: rgba(255,255,255,.6); }
+
+.venues-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.venue-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.venue-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.4);
+}
+.venue-card-header {
+  position: relative;
+  padding: 40px 32px 32px;
+  text-align: center;
+  color: var(--white);
+}
+.mahal-header { background: linear-gradient(135deg, var(--maroon-dk), #3d0a18); }
+.conv-header  { background: linear-gradient(135deg, #0d2a45, #1a4c7a); }
+
+.venue-floor-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.25);
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+.venue-icon { font-size: 2.8rem; margin-bottom: 12px; }
+.venue-card-header h3 { font-size: 1.5rem; color: var(--white); margin-bottom: 6px; }
+.venue-card-header p  { color: rgba(255,255,255,.65); font-size: .88rem; }
+
+.venue-card-body { padding: 28px 32px 32px; }
+
+.venue-capacity-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(255,255,255,.05);
+  border-radius: 10px;
+  padding: 16px 0;
+  margin-bottom: 24px;
+}
+.vcap { flex: 1; text-align: center; }
+.vcap-num {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.vcap-label { font-size: .72rem; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .1em; }
+.vcap-divider { width: 1px; height: 36px; background: rgba(255,255,255,.12); }
+
+.venue-features {
+  list-style: none;
+  margin-bottom: 20px;
+}
+.venue-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,.75);
+  font-size: .9rem;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.venue-features li span { color: var(--gold); font-size: .7rem; }
+
+.venue-ideal {
+  color: rgba(255,255,255,.55);
+  font-size: .83rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.venue-ideal strong { color: var(--gold); }
+
+/* ── Gallery Tabs ── */
+.gallery-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.gallery-tab {
+  background: var(--light);
+  border: 2px solid transparent;
+  color: var(--mid);
+  font-family: 'Inter', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.gallery-tab:hover { border-color: var(--gold); color: var(--dark); }
+.gallery-tab.active {
+  background: var(--maroon);
+  color: var(--white);
+  border-color: var(--maroon);
+}
+.gallery-panel { display: none; }
+.gallery-panel.active { display: block; }
+
 /* ── Pricing ── */
 .pricing { background: var(--light); }
 .pricing-table-wrap {
@@ -453,23 +576,37 @@ img { max-width: 100%; display: block; }
 }
 
 /* ── Testimonials ── */
-.testimonials { background: var(--white); }
-.testi-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.testimonials { background: var(--white); overflow: hidden; }
+.testi-carousel-wrap {
+  overflow: hidden;
+  width: 100%;
+  padding: 8px 0 32px;
+  cursor: grab;
+  user-select: none;
 }
+.testi-carousel-wrap:active { cursor: grabbing; }
+.testi-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: scrollLeft 60s linear infinite;
+  padding: 0 24px;
+}
+.testi-track:hover { animation-play-state: paused; }
 .testi-card {
   background: var(--light);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 28px 28px 24px;
   border-left: 4px solid var(--gold);
+  width: 320px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow);
 }
-.testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 14px; letter-spacing: .1em; }
-.testi-card p { color: var(--mid); font-size: .9rem; margin-bottom: 20px; font-style: italic; line-height: 1.7; }
+.testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 12px; letter-spacing: .1em; }
+.testi-card p { color: var(--mid); font-size: .88rem; margin-bottom: 18px; font-style: italic; line-height: 1.7; }
 .testi-author { display: flex; align-items: center; gap: 12px; }
 .testi-avatar {
-  width: 40px; height: 40px;
+  width: 38px; height: 38px;
   background: var(--maroon);
   color: var(--white);
   border-radius: 50%;
@@ -477,10 +614,16 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: .95rem;
+  font-size: .9rem;
+  flex-shrink: 0;
 }
-.testi-author strong { display: block; font-size: .9rem; }
-.testi-author small { color: var(--mid); font-size: .78rem; }
+.testi-author strong { display: block; font-size: .88rem; }
+.testi-author small { color: var(--mid); font-size: .76rem; }
+
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 /* ── Contact ── */
 .contact { background: var(--dark); }
@@ -650,6 +793,7 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   .section { padding: 72px 0; }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .venues-grid { grid-template-columns: 1fr; }
   .events-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .g-large { grid-column: auto; }
@@ -658,6 +802,7 @@ img { max-width: 100%; display: block; }
   .testi-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .pricing-notes { flex-direction: column; align-items: center; }
+  .gallery-tabs { flex-direction: column; align-items: center; }
   .nav-links {
     display: none;
     position: absolute;

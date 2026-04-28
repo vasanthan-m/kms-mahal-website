@@ -26,7 +26,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 
 // Scroll reveal
 const revealEls = document.querySelectorAll(
-  '.fac-card, .event-card, .gallery-card, .testi-card, .about-grid, .cinfo-card, .contact-form-wrap, .pricing-table-wrap'
+  '.fac-card, .event-card, .gallery-card, .about-grid, .cinfo-card, .contact-form-wrap, .pricing-table-wrap'
 );
 revealEls.forEach(el => el.classList.add('reveal'));
 
@@ -40,6 +40,23 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 revealEls.forEach(el => observer.observe(el));
+
+// Infinite testimonial carousel — duplicate cards for seamless loop
+const track = document.getElementById('testiTrack');
+if (track) {
+  const clone = track.innerHTML;
+  track.innerHTML += clone;
+}
+
+// Gallery tabs
+document.querySelectorAll('.gallery-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
 
 // Contact form submit
 document.getElementById('contactForm').addEventListener('submit', (e) => {
