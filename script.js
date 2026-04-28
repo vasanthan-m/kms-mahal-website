@@ -58,6 +58,73 @@ document.querySelectorAll('.gallery-tab').forEach(tab => {
   });
 });
 
+// Lightbox
+(function () {
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbCtr   = document.getElementById('lbCounter');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev  = document.getElementById('lbPrev');
+  const lbNext  = document.getElementById('lbNext');
+  if (!lb) return;
+
+  let group = [];
+  let idx   = 0;
+
+  function open(thumbs, startIdx) {
+    group = Array.from(thumbs);
+    idx   = startIdx;
+    show();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function show() {
+    const item = group[idx];
+    const src  = item.dataset.src || item.querySelector('img')?.src || '';
+    const alt  = item.querySelector('img')?.alt || item.closest('.gallery-category')?.querySelector('.gallery-cat-title')?.textContent.trim() || '';
+    lbImg.src     = src;
+    lbImg.alt     = alt;
+    lbTitle.textContent  = alt;
+    lbCtr.textContent    = `${idx + 1} / ${group.length}`;
+    lbPrev.style.display = group.length > 1 ? '' : 'none';
+    lbNext.style.display = group.length > 1 ? '' : 'none';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function prev() { idx = (idx - 1 + group.length) % group.length; show(); }
+  function next() { idx = (idx + 1) % group.length; show(); }
+
+  document.querySelectorAll('.gallery-thumbs').forEach(thumbsEl => {
+    thumbsEl.querySelectorAll('.thumb-item').forEach((item, i) => {
+      item.addEventListener('click', () => open(thumbsEl.querySelectorAll('.thumb-item'), i));
+    });
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')      close();
+    if (e.key === 'ArrowLeft')   prev();
+    if (e.key === 'ArrowRight')  next();
+  });
+
+  // Hide placeholder when real image loads
+  document.querySelectorAll('.thumb-item img').forEach(img => {
+    if (img.complete && img.naturalWidth) img.classList.add('loaded');
+    else img.addEventListener('load', () => img.classList.add('loaded'));
+  });
+})();
+
 // Contact form submit — Web3Forms
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
